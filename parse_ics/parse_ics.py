@@ -3,12 +3,24 @@
 import vobject
 import csv
 import pytz
-import datetime as dt
 import requests as r
+import argparse
+
+# Create the parser
+parser = argparse.ArgumentParser(description='Parse ICS file')
+
+# Add the arguments
+parser.add_argument('--teamsideline-url', type=str, required=True,
+                    help='The URL of the Team Sideline Schedule')
+parser.add_argument('--team-name', type=str, required=True,
+                    help='The name of the team according to Team Sideline')
+
+# Parse the arguments
+args = parser.parse_args()
 
 TIMEZONE_NAME = 'America/Los_Angeles'
-TEAMSIDELINE_URL = 'http://tmsdln.com/28knr'
-TEAM_NAME = 'Due Soccer Club (Maroon)'
+TEAMSIDELINE_URL = args.teamsideline_url
+TEAM_NAME = args.team_name
 
 def convert_from_utc(utc_dt, timezone_name='America/Los_Angeles'):
     """
